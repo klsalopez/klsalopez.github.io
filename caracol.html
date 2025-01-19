@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caracol Persiguiendo el Mouse</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f5f5f5;
+        }
+        
+        #caracol {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: #8dbf42; /* Color del caracol */
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        #caracol .caracol-shell {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 50px;
+            background-color: #8b4513; /* Color del caparazón */
+            border-radius: 50%;
+        }
+
+        #caracol .caracol-eye {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            width: 15px;
+            height: 15px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        #caracol .caracol-eye.right {
+            left: 55px;
+        }
+
+        #vomit {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: green;
+            border-radius: 50%;
+            display: none;
+            animation: vomitAnim 1s ease-out;
+        }
+
+        @keyframes vomitAnim {
+            0% {
+                opacity: 1;
+                top: 50px;
+            }
+            100% {
+                opacity: 0;
+                top: 150px;
+                transform: scale(2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="caracol">
+        <div class="caracol-shell"></div>
+        <div class="caracol-eye"></div>
+        <div class="caracol-eye right"></div>
+    </div>
+
+    <div id="vomit"></div>
+
+    <script>
+        const caracol = document.getElementById('caracol');
+        const vomit = document.getElementById('vomit');
+        let targetX = 0;
+        let targetY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            targetX = event.clientX;
+            targetY = event.clientY;
+        });
+
+        function moveCaracol() {
+            const caracolRect = caracol.getBoundingClientRect();
+            const caracolX = caracolRect.left + caracolRect.width / 2;
+            const caracolY = caracolRect.top + caracolRect.height / 2;
+
+            const deltaX = targetX - caracolX;
+            const deltaY = targetY - caracolY;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            const moveSpeed = 0.05;
+
+            if (distance > 5) {
+                const moveX = deltaX / distance * moveSpeed;
+                const moveY = deltaY / distance * moveSpeed;
+
+                caracol.style.left = `${caracolX + moveX}px`;
+                caracol.style.top = `${caracolY + moveY}px`;
+            } else {
+                caracol.style.left = `${targetX - caracolRect.width / 2}px`;
+                caracol.style.top = `${targetY - caracolRect.height / 2}px`;
+
+                // Simula que el caracol come el mouse y se enferma
+                vomit.style.left = `${targetX}px`;
+                vomit.style.top = `${targetY + 50}px`;
+                vomit.style.display = 'block';
+                setTimeout(() => {
+                    vomit.style.display = 'none';
+                }, 1000);
+            }
+        }
+
+        setInterval(moveCaracol, 20);
+    </script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos Sin Virus</title>
+    <link rel="icon" href="data/ico.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #4b0082; /* Color de fondo */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #fff;
+            margin: 20px;
+        }
+
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Ajuste automático de columnas */
+            gap: 10px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px; /* Limita el tamaño de la cuadrícula */
+        }
+
+        .grid-item {
+            width: 100%; /* Ancho completo del contenedor */
+            height: 120px; /* Tamaño fijo */
+            background-color: #fff;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s, transform 0.2s;
+            position: relative;
+        }
+
+        .grid-item img {
+            width: 100%;   /* Aseguramos que la imagen ocupe todo el espacio */
+            height: 100%;  /* Aseguramos que la imagen ocupe todo el espacio */
+            object-fit: cover;  /* Mantiene la imagen proporcionalmente */
+        }
+
+        .grid-item.selected {
+            box-shadow: 0 0 20px 5px #ffeb3b;
+            transform: scale(1.1);
+        }
+
+        .random-btn {
+            padding: 10px 20px;
+            background-color: #ffeb3b;
+            border: none;
+            border-radius: 5px;
+            color: #000;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .random-btn:hover {
+            background-color: #ffd600;
+        }
+    </style>
+    <script>
+        let timer;
+
+        function launchGame(gameName) {
+            const url = `emulador.html?game=data/${gameName}.swf`;
+            window.open(url, '_blank');
+        }
+
+        function highlightRandomGame() {
+            const items = document.querySelectorAll('.grid-item');
+            let selectedIndex = -1;
+
+            // Clear any existing highlight
+            items.forEach(item => item.classList.remove('selected'));
+
+            // Start the random highlight animation
+            let counter = 0;
+            timer = setInterval(() => {
+                // Remove the previous highlight
+                if (selectedIndex !== -1) {
+                    items[selectedIndex].classList.remove('selected');
+                }
+
+                // Select a random index
+                selectedIndex = Math.floor(Math.random() * items.length);
+                items[selectedIndex].classList.add('selected');
+
+                // Stop after 4 seconds
+                if (++counter >= 16) {
+                    clearInterval(timer);
+                    setTimeout(() => {
+                        const selectedGame = items[selectedIndex].getAttribute('data-game');
+                        launchGame(selectedGame);
+                    }, 500); // Delay to allow final highlight
+                }
+            }, 250);
+        }
+    </script>
+</head>
+<body>
+    <h1>Juegos Flash - Contenedores</h1>
+    <div class="game-container">
+        <!-- Contenedores de juego -->
+        <div class="grid-item" data-game="juego (1)" onclick="launchGame('juego (1)')">
+            <img src="data/recursos/1.png" alt="Juego 1">
+        </div>
+        <div class="grid-item" data-game="juego (2)" onclick="launchGame('juego (2)')">
+            <img src="data/recursos/2.png" alt="Juego 2">
+        </div>
+        <div class="grid-item" data-game="juego (3)" onclick="launchGame('juego (3)')">
+            <img src="data/recursos/3.png" alt="Juego 3">
+        </div>
+        <div class="grid-item" data-game="juego (4)" onclick="launchGame('juego (4)')">
+            <img src="data/recursos/4.png" alt="Juego 4">
+        </div>
+        <div class="grid-item" data-game="juego (5)" onclick="launchGame('juego (5)')">
+            <img src="data/recursos/5.png" alt="Juego 5">
+        </div>
+        <div class="grid-item" data-game="juego (6)" onclick="launchGame('juego (6)')">
+            <img src="data/recursos/6.png" alt="Juego 6">
+        </div>
+        <div class="grid-item" data-game="juego (7)" onclick="launchGame('juego (7)')">
+            <img src="data/recursos/7.png" alt="Juego 7">
+        </div>
+        <div class="grid-item" data-game="juego (8)" onclick="launchGame('juego (8)')">
+            <img src="data/recursos/8.png" alt="Juego 8">
+        </div>
+        <div class="grid-item" data-game="juego (9)" onclick="launchGame('juego (9)')">
+            <img src="data/recursos/9.png" alt="Juego 9">
+        </div>
+        <div class="grid-item" data-game="juego (10)" onclick="launchGame('juego (10)')">
+            <img src="data/recursos/10.png" alt="Juego 10">
+        </div>
+        <div class="grid-item" data-game="juego (11)" onclick="launchGame('juego (11)')">
+            <img src="data/recursos/11.png" alt="Juego 11">
+        </div>
+        <div class="grid-item" data-game="juego (12)" onclick="launchGame('juego (12)')">
+            <img src="data/recursos/12.png" alt="Juego 12">
+        </div>
+        <div class="grid-item" data-game="juego (13)" onclick="launchGame('juego (13)')">
+            <img src="data/recursos/13.png" alt="Juego 13">
+        </div>
+        <div class="grid-item" data-game="juego (14)" onclick="launchGame('juego (14)')">
+            <img src="data/recursos/14.png" alt="Juego 14">
+        </div>
+        <div class="grid-item" data-game="juego (15)" onclick="launchGame('juego (15)')">
+            <img src="data/recursos/15.png" alt="Juego 15">
+        </div>
+        <div class="grid-item" data-game="juego (16)" onclick="launchGame('juego (16)')">
+            <img src="data/recursos/16.png" alt="Juego 16">
+        </div>
+        <div class="grid-item" data-game="juego (17)" onclick="launchGame('juego (17)')">
+            <img src="data/recursos/17.png" alt="Juego 17">
+        </div>
+        <div class="grid-item" data-game="juego (18)" onclick="launchGame('juego (18)')">
+            <img src="data/recursos/18.png" alt="Juego 18">
+        </div>
+        <div class="grid-item" data-game="juego (19)" onclick="launchGame('juego (19)')">
+            <img src="data/recursos/19.png" alt="Juego 19">
+        </div>
+        <div class="grid-item" data-game="juego (20)" onclick="launchGame('juego (20)')">
+            <img src="data/recursos/20.png" alt="Juego 20">
+        </div>
+        <div class="grid-item" data-game="juego (21)" onclick="launchGame('juego (21)')">
+            <img src="data/recursos/21.png" alt="Juego 21">
+        </div>
+        <div class="grid-item" data-game="juego (22)" onclick="launchGame('juego (22)')">
+            <img src="data/recursos/22.png" alt="Juego 22">
+        </div>
+        <div class="grid-item" data-game="juego (23)" onclick="launchGame('juego (23)')">
+            <img src="data/recursos/23.png" alt="Juego 23">
+        </div>
+        <div class="grid-item" data-game="juego (24)" onclick="launchGame('juego (24)')">
+            <img src="data/recursos/24.png" alt="Juego 24">
+        </div>
+        <div class="grid-item" data-game="juego (25)" onclick="launchGame('juego (25)')">
+            <img src="data/recursos/25.png" alt="Juego 25">
+        </div>
+        <div class="grid-item" data-game="juego (26)" onclick="launchGame('juego (26)')">
+            <img src="data/recursos/26.png" alt="Juego 26">
+        </div>
+        <div class="grid-item" data-game="juego (27)" onclick="launchGame('juego (27)')">
+            <img src="data/recursos/27.png" alt="Juego 27">
+        </div>
+        <div class="grid-item" data-game="juego (28)" onclick="launchGame('juego (28)')">
+            <img src="data/recursos/28.png" alt="Juego 28">
+        </div>
+        <div class="grid-item" data-game="juego (29)" onclick="launchGame('juego (29)')">
+            <img src="data/recursos/29.png" alt="Juego 29">
+        </div>
+        <div class="grid-item" data-game="juego (30)" onclick="launchGame('juego (30)')">
+            <img src="data/recursos/30.png" alt="Juego 30">
+        </div>
+        <div class="grid-item" data-game="juego (31)" onclick="launchGame('juego (31)')">
+            <img src="data/recursos/31.png" alt="Juego 31">
+        </div>
+        <div class="grid-item" data-game="juego (32)" onclick="launchGame('juego (32)')">
+            <img src="data/recursos/32.png" alt="Juego 32">
+        </div>
+        <div class="grid-item" data-game="juego (33)" onclick="launchGame('juego (33)')">
+            <img src="data/recursos/33.png" alt="Juego 33">
+        </div>
+        <div class="grid-item" data-game="juego (34)" onclick="launchGame('juego (34)')">
+            <img src="data/recursos/34.png" alt="Juego 34">
+        </div>
+        <div class="grid-item" data-game="juego (35)" onclick="launchGame('juego (35)')">
+            <img src="data/recursos/35.png" alt="Juego 35">
+        </div>
+        <div class="grid-item" data-game="juego (36)" onclick="launchGame('juego (36)')">
+            <img src="data/recursos/36.png" alt="Juego 36">
+        </div>
+        <div class="grid-item" data-game="juego (37)" onclick="launchGame('juego (37)')">
+            <img src="data/recursos/37.png" alt="Juego 37">
+        </div>
+        <div class="grid-item" data-game="juego (38)" onclick="launchGame('juego (38)')">
+            <img src="data/recursos/38.png" alt="Juego 38">
+        </div>
+        <div class="grid-item" data-game="juego (39)" onclick="launchGame('juego (39)')">
+            <img src="data/recursos/39.png" alt="Juego 39">
+        </div>
+    </div>
+    <button class="random-btn" onclick="highlightRandomGame()">Seleccionar Aleatoriamente</button>
+</body>
+</html>
